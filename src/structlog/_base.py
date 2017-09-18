@@ -141,7 +141,7 @@ class BoundLoggerBase(object):
             # of ``(args, kwargs)`` and pass it right through.
             return event_dict
         elif isinstance(event_dict, dict):
-            return (), event_dict
+            return (event,), event_dict
         else:
             raise ValueError(
                 "Last processor didn't return an approriate value.  Allowed "
@@ -174,6 +174,6 @@ class BoundLoggerBase(object):
         """
         try:
             args, kw = self._process_event(method_name, event, event_kw)
-            return getattr(self._logger, method_name)(*args, **kw)
+            return getattr(self._logger, method_name)(*args,  **kw)
         except DropEvent:
             return
